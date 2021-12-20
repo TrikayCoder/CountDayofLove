@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="368dp"
+        android:layout_height="127dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.627"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.134">
+
+        <EditText
+            android:id="@+id/type_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="DD/MM/YYYY"
+            android:inputType="textPersonName"
+            android:textSize="33dp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="93dp"
+        android:layout_height="73dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="0.054" >
+
+        <ImageButton
+            android:id="@+id/save_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            app:srcCompat="@drawable/save_date" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="99dp"
+        android:layout_height="83dp"
+        android:layout_marginTop="240dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.948"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintVertical_bias="0.662">
+
+        <ImageButton
+            android:id="@+id/goto1"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            app:srcCompat="@android:drawable/ic_delete" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

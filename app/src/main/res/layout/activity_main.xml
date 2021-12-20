@@ -23,7 +23,9 @@
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/hearth" />
+            app:srcCompat="@drawable/hearth"
+            />
+
     </LinearLayout>
 
     <LinearLayout
@@ -33,7 +35,6 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.0">
@@ -41,54 +42,52 @@
         <TextView
             android:id="@+id/dayoflove"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="78dp"
             android:fontFamily="sans-serif-condensed-light"
             android:gravity="center"
+            android:text="dd/mm/yyyy"
             android:textSize="33sp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="411dp"
-        android:layout_height="67dp"
+        android:layout_width="71dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="64dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.91">
+
+        <ImageButton
+            android:id="@+id/goto2"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="206dp"
+        android:layout_height="47dp"
         android:layout_marginTop="24dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         app:layout_constraintVertical_bias="0.0">
 
-        <EditText
-            android:id="@+id/typeday"
+        <TextView
+            android:id="@+id/date_watch"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
+            android:layout_height="57dp"
             android:gravity="center"
-            android:hint="The day we started falling in love"
-            android:inputType="textPersonName" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="185dp"
-        android:layout_height="112dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-        app:layout_constraintVertical_bias="0.0" >
-
-        <ImageButton
-            android:id="@+id/save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            app:srcCompat="@drawable/save"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:textSize="30dp"
+            android:text="0/0/0" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
