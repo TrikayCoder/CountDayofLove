@@ -65,10 +65,10 @@
 
         <ImageButton
             android:id="@+id/goto1"
-            android:background="@null"
             android:layout_width="match_parent"
-            android:layout_height="96dp"
-            app:srcCompat="@android:drawable/ic_delete" />
+            android:layout_height="wrap_content"
+            android:background="@null"
+            app:srcCompat="@drawable/back_main_button" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
