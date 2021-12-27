@@ -51,26 +51,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="71dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="64dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.952"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.91">
-
-        <ImageButton
-            android:id="@+id/goto2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            app:srcCompat="@drawable/edit_button" />
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="206dp"
         android:layout_height="47dp"
         android:layout_marginTop="24dp"
@@ -88,6 +68,25 @@
             android:gravity="center"
             android:textSize="30dp"
             android:text="0/0/0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="72dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.156" >
+
+        <ImageButton
+            android:id="@+id/gotoSetting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            app:srcCompat="@drawable/edit_button" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

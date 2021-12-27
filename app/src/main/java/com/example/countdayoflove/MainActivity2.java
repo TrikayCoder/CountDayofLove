@@ -23,7 +23,7 @@ public class MainActivity2 extends AppCompatActivity {
     File myInternalFile;
 
     EditText type_date;
-    ImageButton save, goto1;
+    ImageButton save, gotoSetting;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,21 +32,23 @@ public class MainActivity2 extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         //end
         setContentView(R.layout.activity_main2);
-
+        //TODO CHECK THE EXISTENCE OF FILE
+        //IF FILE NOT EXIT, CREATE NEW FILE
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
         File directory = contextWrapper.getDir(filepath, Context.MODE_PRIVATE);
         myInternalFile = new File(directory, filename);
+        setup();
 
-        type_date = findViewById(R.id.type_date);
-        save = findViewById(R.id.save_date);
-        goto1 = findViewById(R.id.goto1);
-        goto1.setOnClickListener(new View.OnClickListener() {
+        //TODO GOTO SETTING ACTIVITY
+        gotoSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mg2 = new Intent(MainActivity2.this, MainActivity.class);
+                Intent mg2 = new Intent(MainActivity2.this, SettingActivity.class);
                 startActivity(mg2);
             }
         });
+
+        //TODO BUTTON SAVE DATE
         save.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -62,6 +64,8 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
     }
+
+    //TODO METHOD WRITE DATA OVERRIDING TO FILE
     private void writeFile(){
         try {
             //Mở file
@@ -74,7 +78,7 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }
 
-        private boolean checkString(String s){
+    private boolean checkString(String s){
         int check_temp = 0;
         for(int i=0; i<s.length();i++){
             if(s.charAt(i) >= 'a' && s.charAt(i) <= 'z' ){
@@ -119,7 +123,7 @@ public class MainActivity2 extends AppCompatActivity {
             return true;
         }
     }
-
+    //TODO CHECK DATE TYPE STRING TRUE OR FALSE
     private boolean formatCheck(){
         int check_finaly = 0;
         String s = type_date.getText().toString();
@@ -133,19 +137,19 @@ public class MainActivity2 extends AppCompatActivity {
             String[] temp = s.split("/");
             if (checkString(temp[0])) {
                 int day = Integer.parseInt(temp[0]);
-               if (day >  0){
-                   if (checkString(temp[1])) {
-                       int month = Integer.parseInt(temp[1]);
-                       if (month >  0){
-                           if (checkString(temp[2])) {
-                               int year = Integer.parseInt(temp[2]);
-                               if (year >  0){
+                if (day >  0){
+                    if (checkString(temp[1])) {
+                        int month = Integer.parseInt(temp[1]);
+                        if (month >  0){
+                            if (checkString(temp[2])) {
+                                int year = Integer.parseInt(temp[2]);
+                                if (year >  0){
                                     check_finaly += 1;
-                               }
-                           }
-                       }
-                   }
-               }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
         }
@@ -154,5 +158,11 @@ public class MainActivity2 extends AppCompatActivity {
         }else{
             return false;
         }
+    }
+    //TODO SETUP INITIAL VARIABLE
+    public void setup(){
+        type_date = findViewById(R.id.type_date);
+        save = findViewById(R.id.save_date);
+        gotoSetting = findViewById(R.id.gotoSettingfromActivity2);
     }
 }

@@ -8,7 +8,7 @@ import android.view.WindowManager;
 
 import java.util.Objects;
 
-public class modau extends AppCompatActivity {
+public class OpeningScene extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,10 +17,11 @@ public class modau extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Objects.requireNonNull(getSupportActionBar()).hide();
         //end
-        setContentView(R.layout.activity_modau);
+        setContentView(R.layout.activity_opening_scene);
+        //TODO  RUN TIME OPENING SCREEN
         new Handler().postDelayed(new Runnable() {
             @Override public void run() {
-                Intent i = new Intent(modau.this, MainActivity.class);
+                Intent i = new Intent(OpeningScene.this, MainActivity.class);
                 startActivity(i);
                 finish(); } }, 3000);
     }
