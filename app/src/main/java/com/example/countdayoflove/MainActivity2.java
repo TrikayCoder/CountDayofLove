@@ -18,11 +18,11 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class MainActivity2 extends AppCompatActivity {
-    private final String filename = "internalStorage.txt";
-    private final String filepath = "ThuMucCuaToi";
+    private final String fileName = "internalStorage.txt";
+    private final String filePath = "ThuMucCuaToi";
     File myInternalFile;
 
-    EditText type_date;
+    EditText typeDate;
     ImageButton save, gotoSetting;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +35,8 @@ public class MainActivity2 extends AppCompatActivity {
         //TODO CHECK THE EXISTENCE OF FILE
         //IF FILE NOT EXIT, CREATE NEW FILE
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
-        File directory = contextWrapper.getDir(filepath, Context.MODE_PRIVATE);
-        myInternalFile = new File(directory, filename);
+        File directory = contextWrapper.getDir(filePath, Context.MODE_PRIVATE);
+        myInternalFile = new File(directory, fileName);
         setup();
 
         //TODO GOTO SETTING ACTIVITY
@@ -71,7 +71,7 @@ public class MainActivity2 extends AppCompatActivity {
             //Mở file
             FileOutputStream fos = new FileOutputStream(myInternalFile);
             //Ghi dữ liệu vào file
-            fos.write(type_date.getText().toString().getBytes());
+            fos.write(typeDate.getText().toString().getBytes());
             fos.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,16 +79,16 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private boolean checkString(String s){
-        int check_temp = 0;
+        int checkTemp = 0;
         for(int i=0; i<s.length();i++){
             if(s.charAt(i) >= 'a' && s.charAt(i) <= 'z' ){
-                check_temp++;
+                checkTemp++;
             }
             if(s.charAt(i) >= 'A' && s.charAt(i) <= 'Z' ){
-                check_temp++;
+                checkTemp++;
             }
         }
-        if(check_temp == 0){
+        if(checkTemp == 0){
             return true;
         }else{
             return false;
@@ -96,13 +96,13 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private boolean checkNumber(String s){
-        int check_temp = 0;
+        int checkTemp = 0;
         for(int i=0;i<s.length();i++){
             if(s.charAt(i) >= '0' && s.charAt(i) <= '9'){
-                check_temp += 1;
+                checkTemp += 1;
             }
         }
-        if (check_temp != 0){
+        if (checkTemp != 0){
             return true;
         }else{
             return false;
@@ -110,14 +110,14 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private boolean checkSpec(){
-        int check = 0;
-        String s = type_date.getText().toString();
+        int checkTemp = 0;
+        String s = typeDate.getText().toString();
         for(int i=0;i<s.length();i++){
             if(s.charAt(i) == '/'){
-                check++;
+                checkTemp++;
             }
         }
-        if(check != 2){
+        if(checkTemp != 2){
             return false;
         } else{
             return true;
@@ -125,8 +125,8 @@ public class MainActivity2 extends AppCompatActivity {
     }
     //TODO CHECK DATE TYPE STRING TRUE OR FALSE
     private boolean formatCheck(){
-        int check_finaly = 0;
-        String s = type_date.getText().toString();
+        int checkFinaly = 0;
+        String s = typeDate.getText().toString();
         if (s.equals("")){
             return false;
         }
@@ -144,7 +144,7 @@ public class MainActivity2 extends AppCompatActivity {
                             if (checkString(temp[2])) {
                                 int year = Integer.parseInt(temp[2]);
                                 if (year >  0){
-                                    check_finaly += 1;
+                                    checkFinaly += 1;
                                 }
                             }
                         }
@@ -153,7 +153,7 @@ public class MainActivity2 extends AppCompatActivity {
             }
 
         }
-        if(check_finaly != 0){
+        if(checkFinaly != 0){
             return true;
         }else{
             return false;
@@ -161,7 +161,7 @@ public class MainActivity2 extends AppCompatActivity {
     }
     //TODO SETUP INITIAL VARIABLE
     public void setup(){
-        type_date = findViewById(R.id.type_date);
+        typeDate = findViewById(R.id.type_date);
         save = findViewById(R.id.save_date);
         gotoSetting = findViewById(R.id.gotoSettingfromActivity2);
     }

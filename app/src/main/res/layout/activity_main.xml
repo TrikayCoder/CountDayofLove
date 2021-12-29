@@ -2,9 +2,9 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -23,8 +23,7 @@
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/hearth"
-            />
+            app:srcCompat="@drawable/hearth" />
 
     </LinearLayout>
 
@@ -51,6 +50,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout6"
         android:layout_width="206dp"
         android:layout_height="47dp"
         android:layout_marginTop="24dp"
@@ -66,8 +66,8 @@
             android:layout_width="match_parent"
             android:layout_height="57dp"
             android:gravity="center"
-            android:textSize="30dp"
-            android:text="0/0/0" />
+            android:text="0/0/0"
+            android:textSize="30dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -79,7 +79,7 @@
         app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.156" >
+        app:layout_constraintVertical_bias="0.156">
 
         <ImageButton
             android:id="@+id/gotoSetting"

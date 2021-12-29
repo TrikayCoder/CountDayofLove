@@ -20,10 +20,10 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView day_display, date_display;
+    TextView dayDisplay, dateDisplay;
     ImageButton gotoSetting;
-    private String filename = "internalStorage.txt";
-    private String filepath = "ThuMucCuaToi";
+    private String fileName = "internalStorage.txt";
+    private String filePath = "ThuMucCuaToi";
     File myInternalFile;
     @SuppressLint("SetTextI18n")
     @Override
@@ -40,27 +40,27 @@ public class MainActivity extends AppCompatActivity {
         //TODO CHECK THE EXISTENCE OF FILE
         //IF FILE NOT EXIT, CREATE NEW FILE
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
-        File directory = contextWrapper.getDir(filepath, Context.MODE_PRIVATE);
-        myInternalFile = new File(directory, filename);
+        File directory = contextWrapper.getDir(filePath, Context.MODE_PRIVATE);
+        myInternalFile = new File(directory, fileName);
         GetDay gd = new GetDay();
 
         //TODO SHOW THE NUMBER OF LOVED DAYS
-        String s = ReadFile();
+        String dateRaw = ReadFile();
         //IF S IS EMPTY
-        if(s.equals("")){
-            day_display.setText("0");
-            date_display.setText("0/0/0");
+        if(dateRaw.equals("")){
+            dayDisplay.setText("0");
+            dateDisplay.setText("0/0/0");
         }
         // IF S NOT EMPTY
         else {
-            date_display.setText(s);
-            String[] words = s.split("/");
-            int day = Integer.parseInt(words[0]);
-            int month = Integer.parseInt(words[1]);
-            int year = Integer.parseInt(words[2]);
+            dateDisplay.setText(dateRaw);
+            String[] dateProcessed = dateRaw.split("/");
+            int day = Integer.parseInt(dateProcessed[0]);
+            int month = Integer.parseInt(dateProcessed[1]);
+            int year = Integer.parseInt(dateProcessed[2]);
             int result = gd.finalyday(day, month, year) + 1;
             String display = String.valueOf(result);
-            day_display.setText("Đã Bên Nhau " + display + " Ngày");
+            dayDisplay.setText("Đã Bên Nhau " + display + " Ngày");
 
         }
         //-----------------------------------
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             FileInputStream fis = new FileInputStream(myInternalFile);
             DataInputStream in = new DataInputStream(fis);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            //str is raw date
             str += br.readLine();
             in.close();
         } catch (IOException e) {
@@ -87,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
     //TODO SETUP INITIAL VARIABLE
     public void setup(){
-        date_display = (TextView) findViewById(R.id.date_watch) ;
-        day_display = (TextView) findViewById(R.id.dayoflove);
+        dateDisplay = (TextView) findViewById(R.id.date_watch) ;
+        dayDisplay = (TextView) findViewById(R.id.dayoflove);
         gotoSetting = (ImageButton) findViewById(R.id.gotoSetting);
     }
 }

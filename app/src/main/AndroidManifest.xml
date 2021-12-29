@@ -11,7 +11,8 @@
         android:theme="@style/Theme.CountDayOfLove">
         <activity
             android:name=".SettingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".OpeningScene"
             android:exported="true">
