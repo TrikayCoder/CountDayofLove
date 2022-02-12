@@ -1,4 +1,4 @@
-package com.example.countdayoflove;
+package com.example.countdayoflove.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.countdayoflove.R;
+import com.example.countdayoflove.logic.GetDay;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;

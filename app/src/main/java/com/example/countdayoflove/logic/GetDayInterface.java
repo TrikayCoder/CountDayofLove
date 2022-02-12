@@ -1,4 +1,4 @@
-package com.example.countdayoflove;
+package com.example.countdayoflove.logic;
 
 public interface GetDayInterface {
     int getdayfromyear(int year);

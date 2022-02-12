@@ -1,4 +1,4 @@
-package com.example.countdayoflove;
+package com.example.countdayoflove.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+
+import com.example.countdayoflove.R;
 
 import java.util.Objects;
 

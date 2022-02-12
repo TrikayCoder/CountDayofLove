@@ -1,4 +1,5 @@
-package com.example.countdayoflove;
+package com.example.countdayoflove.logic;
+
 import java.util.Calendar;
 
 public class GetDay implements GetDayInterface {
@@ -100,7 +101,7 @@ public class GetDay implements GetDayInterface {
         int day_from_year = getdayfromyear(year);
         int finally_day;
         if(real_day < 0){
-            finally_day = day_from_year - real_day;
+            finally_day = day_from_year - (- real_day);
         }else{
             finally_day = day_from_year + real_day;
         }
