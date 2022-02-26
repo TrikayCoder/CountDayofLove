@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,85 +8,97 @@
     tools:context=".ui.MainActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="409dp"
-        android:layout_height="192dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.289">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/hearth" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="397dp"
-        android:layout_height="106dp"
+        android:layout_width="199dp"
+        android:layout_height="112dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.0">
-
-        <TextView
-            android:id="@+id/dayoflove"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="sans-serif-condensed-light"
-            android:gravity="center"
-            android:text="Bạn Chưa Nhập Ngày Bắt Đầu Yêu Nhau"
-            android:textSize="33sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout6"
-        android:layout_width="206dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/dayoflove"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/date_watch"
             android:layout_width="match_parent"
-            android:layout_height="57dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/uvf_fiolex_girl"
             android:gravity="center"
             android:text="0/0/0"
-            android:textSize="30dp" />
+            android:textColor="@color/white"
+            android:textSize="40dp" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="70dp"
         android:layout_height="72dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.156">
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageButton
             android:id="@+id/gotoSetting"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@null"
             app:srcCompat="@drawable/edit_button" />
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/dayoflove"
+        android:layout_width="401dp"
+        android:layout_height="212dp"
+        android:fontFamily="@font/uvf_fiolex_girl"
+        android:gravity="center"
+        android:text="Bạn Chưa Nhập Ngày Bắt Đầu Yêu Nhau"
+        android:textColor="@color/white"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.407" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avartarAdam"
+        android:onClick="chanceAvartar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/test"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="2dp"
+        tools:ignore="MissingConstraints,UsingOnClickInXml"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="588dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dayoflove"
+        app:layout_constraintVertical_bias="0.039"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avartarEva"
+        android:onClick="chanceAvartar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/test"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"
+        tools:ignore="MissingConstraints,UsingOnClickInXml"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/dayoflove"
+        app:layout_constraintVertical_bias="0.039"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

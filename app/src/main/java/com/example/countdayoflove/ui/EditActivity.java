@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,7 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Objects;
 
-public class MainActivity2 extends AppCompatActivity {
+public class EditActivity extends AppCompatActivity {
     private final String fileName = "internalStorage.txt";
     private final String filePath = "ThuMucCuaToi";
     File myInternalFile;
@@ -45,8 +45,8 @@ public class MainActivity2 extends AppCompatActivity {
         gotoSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mg2 = new Intent(MainActivity2.this, SettingActivity.class);
-                startActivity(mg2);
+                Intent intent = new Intent(EditActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -57,9 +57,9 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View view) {
                 if (formatCheck()){
                     writeFile();
-                    Toast.makeText(MainActivity2.this,"Saved",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditActivity.this,"Saved",Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(MainActivity2.this,"Error!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditActivity.this,"Error!",Toast.LENGTH_SHORT).show();
                 }
 
 
