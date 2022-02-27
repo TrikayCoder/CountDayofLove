@@ -5,12 +5,16 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.FileUtils;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.text.Html;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,6 +22,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.countdayoflove.R;
 import com.example.countdayoflove.logic.GetDay;
@@ -28,20 +34,21 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import gun0912.tedbottompicker.TedBottomPicker;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView dayDisplay, dateDisplay;
-    ImageView avartarAdam, avartarEva;
     ImageButton gotoSetting;
-    OutputStream outputStream;
     private String fileName = "internalStorage.txt";
     private String filePath = "ThuMucCuaToi";
     File myInternalFile;
@@ -57,12 +64,15 @@ public class MainActivity extends AppCompatActivity {
 
         setup();
         permissionRequest();
+        //TODO SAVE IMAGe
+
         //TODO CHECK THE EXISTENCE OF FILE
         //IF FILE NOT EXIT, CREATE NEW FILE
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
         File directory = contextWrapper.getDir(filePath, Context.MODE_PRIVATE);
         myInternalFile = new File(directory, fileName);
         GetDay gd = new GetDay();
+
 
         //TODO SHOW THE NUMBER OF LOVED DAYS
         String dateRaw = ReadFile();
@@ -128,35 +138,12 @@ public class MainActivity extends AppCompatActivity {
         return str;
     }
 
+
     //TODO SETUP INITIAL VARIABLE
     public void setup(){
         dateDisplay = (TextView) findViewById(R.id.date_watch) ;
         dayDisplay = (TextView) findViewById(R.id.dayoflove);
         gotoSetting = (ImageButton) findViewById(R.id.gotoSetting);
-        avartarAdam = (ImageView) findViewById(R.id.avartarAdam);
-        avartarEva = (ImageView) findViewById(R.id.avartarEva);
     }
 
-    public void chanceAvartar(View view) {
-
-        TedBottomPicker.OnImageSelectedListener listener = new  TedBottomPicker.OnImageSelectedListener(){
-            @Override
-            public void onImageSelected(Uri uri) {
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    if(view.getId() == R.id.avartarAdam){
-                        avartarAdam.setImageBitmap(bitmap);
-                    }else if(view.getId() == R.id.avartarEva){
-                        avartarEva.setImageBitmap(bitmap);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        TedBottomPicker tedBottomPicker = new TedBottomPicker.Builder(MainActivity.this)
-                .setOnImageSelectedListener(listener)
-                .create();
-        tedBottomPicker.show(getSupportFragmentManager());
-    }
 }
