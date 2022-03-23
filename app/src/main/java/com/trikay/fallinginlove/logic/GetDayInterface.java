@@ -1,4 +1,4 @@
-package com.example.countdayoflove.logic;
+package com.trikay.fallinginlove.logic;
 
 public interface GetDayInterface {
     int getdayfromyear(int year);

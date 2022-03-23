@@ -1,4 +1,4 @@
-package com.example.countdayoflove;
+package com.trikay.fallinginlove;
 
 import org.junit.Test;
 

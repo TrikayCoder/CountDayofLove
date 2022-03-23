@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.countdayoflove">
+    package="com.trikay.fallinginlove">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
 
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CountDayOfLove">
         <activity
-            android:name=".ui.OpeningScene"
+            android:name="com.trikay.fallinginlove.ui.OpeningScene"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -23,11 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.EditActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.MainActivity"
+            android:name="com.trikay.fallinginlove.ui.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

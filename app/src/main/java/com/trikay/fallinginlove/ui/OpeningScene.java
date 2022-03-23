@@ -1,4 +1,4 @@
-package com.example.countdayoflove.ui;
+package com.trikay.fallinginlove.ui;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import com.example.countdayoflove.R;
+import com.trikay.fallinginlove.R;
 
 import java.util.Objects;
 

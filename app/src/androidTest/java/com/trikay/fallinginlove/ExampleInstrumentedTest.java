@@ -1,4 +1,4 @@
-package com.example.countdayoflove;
+package com.trikay.fallinginlove;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;

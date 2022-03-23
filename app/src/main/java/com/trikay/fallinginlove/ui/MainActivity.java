@@ -1,32 +1,21 @@
-package com.example.countdayoflove.ui;
+package com.trikay.fallinginlove.ui;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.FileUtils;
-import android.provider.MediaStore;
-import android.provider.OpenableColumns;
 import android.text.Html;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.countdayoflove.R;
-import com.example.countdayoflove.logic.GetDay;
+import com.trikay.fallinginlove.R;
+import com.trikay.fallinginlove.logic.GetDay;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
@@ -34,16 +23,10 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.List;
 import java.util.Objects;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-import gun0912.tedbottompicker.TedBottomPicker;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -96,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
         //-----------------------------------
         //TODO GOTO EDIT ACTIVITY
         gotoSetting.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, EditActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(MainActivity.this, EditActivity.class);
+//            startActivity(intent);
         });
     }
     //TODO PERMISSON

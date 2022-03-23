@@ -1,4 +1,4 @@
-package com.example.countdayoflove.logic;
+package com.trikay.fallinginlove.logic;
 
 import java.util.Calendar;
 
