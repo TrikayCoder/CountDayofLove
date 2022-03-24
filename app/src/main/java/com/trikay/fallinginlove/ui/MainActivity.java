@@ -2,6 +2,7 @@ package com.trikay.fallinginlove.ui;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -9,7 +10,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.text.Html;
@@ -17,18 +21,20 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.trikay.fallinginlove.R;
 import com.trikay.fallinginlove.logic.GetDay;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -37,9 +43,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-
+import  java.lang.Thread;
 import de.hdodenhof.circleimageview.CircleImageView;
 import gun0912.tedbottompicker.TedBottomPicker;
 
@@ -60,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
     Bitmap bitmapImageAvatarAdam = null;
     Bitmap bitmapImageAvatarEva = null;
 
+    //DatePicker
+    Calendar calendar = Calendar.getInstance();
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addControls() {
         txtDayOfLove = findViewById(R.id.txtDayOfLove);
-        txtDayOfLove = findViewById(R.id.txtDayOfLove);
+        txtDayBeginLove = findViewById(R.id.txtDayBeginLove);
         txtNameAdam = findViewById(R.id.txtNameAdam);
         txtNameEva = findViewById(R.id.txtNameEva);
         imgAvatarAdam = findViewById(R.id.imgAvatarAdam);
@@ -106,34 +115,32 @@ public class MainActivity extends AppCompatActivity {
         dbTxtNameAdam = cursor.getString(0);
         dbTxtNameEva = cursor.getString(1);
         String pathImageAvatarAdam = cursor.getString(4);
-        String pathImageAvatarEva = cursor.getString(5);
         if (!pathImageAvatarAdam.equals("None")) {
             Uri uriPathImageAvatarAdam = Uri.parse(pathImageAvatarAdam);
             bitmapImageAvatarAdam = uriToBitmap(uriPathImageAvatarAdam);
         }
+        String pathImageAvatarEva = cursor.getString(5);
         if (!pathImageAvatarEva.equals("None")) {
             Uri uriPathImageAvatarEva = Uri.parse(pathImageAvatarEva);
             bitmapImageAvatarEva = uriToBitmap(uriPathImageAvatarEva);
         }
+        String dateRaw = cursor.getString(6);
         try {
-            String dateRaw = cursor.getString(6);
             if (dateRaw.equals("0/0/0")) {
                 Toast.makeText(MainActivity.this, "Bạn vui lòng vào chỉnh sữa để đặt ngày đôi bạn đến với nhau nhé", Toast.LENGTH_SHORT).show();
             } else {
-                GetDay gd = new GetDay();
+                GetDay getDay = new GetDay();
                 txtDayBeginLove.setText(dateRaw);
                 String[] dateProcessed = dateRaw.split("/");
                 int day = Integer.parseInt(dateProcessed[0]);
                 int month = Integer.parseInt(dateProcessed[1]);
                 int year = Integer.parseInt(dateProcessed[2]);
-                int result = gd.finalyday(day, month, year) + 1;
-                txtDayOfLove.setText(Html.fromHtml("Đã Yêu" + "<br>" + String.valueOf(result) + " <br>" + "Ngày"));
+                int result = getDay.finalyday(day, month, year) + 1;
+                txtDayOfLove.setText(Html.fromHtml("Đã Yêu" + "<br>" + result + " <br>" + "Ngày"));
             }
         } catch (Exception e) {
-            Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, e.toString() + "getRawDataFromDB()", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     private void processCopy() {
@@ -280,18 +287,65 @@ public class MainActivity extends AppCompatActivity {
 
         popup.show(); //showing popup menu
     }
+    private void showDatePicker() {
+        DatePickerDialog.OnDateSetListener callBack = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(android.widget.DatePicker datePicker, int YEAR, int MONTH, int DAY_OF_MONTH) {
+                String[] s = {""};
+                s[0] = DAY_OF_MONTH +"/" + (MONTH+1) +"/" + YEAR;
+                database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("Date", s[0]);
+                int ret = database.update("DemNguoiYeuUser", contentValues, "AgeAdam=?", new String[]{"18"});
+                if(ret> 0){
+                    Toast.makeText(MainActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+        DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this,
+                callBack,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH) );
+        datePickerDialog.show();
+        DatePickerClick datePickerClick = new DatePickerClick();
+        datePickerClick.execute();
+    }
 
     public void menuSettingMainActivityClick(MenuItem item) {
         if(item.getItemId() == R.id.menuSettingMainActivity_Item_One){
-            Toast.makeText(MainActivity.this,
-                    "You Choose One",
-                    Toast.LENGTH_SHORT)
-                    .show();
+            showDatePicker();
         }else if(item.getItemId() == R.id.menuSettingMainActivity_Item_Two){
             Toast.makeText(MainActivity.this,
                     "You Choose Two",
                     Toast.LENGTH_SHORT)
                     .show();
+        }
+    }
+    class DatePickerClick extends AsyncTask<Void, String, Void>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+            txtDayBeginLove.setText(values[0]);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            final String[] s = {""};
+            publishProgress("2/2/2");
+            return null;
         }
     }
 }
