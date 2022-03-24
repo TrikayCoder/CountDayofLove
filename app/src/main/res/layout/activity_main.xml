@@ -2,10 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ctLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.MainActivity"
+    tools:ignore="ContentDescription,OnClick,UsingOnClickInXml,HardcodedText,SpUsage">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -15,16 +17,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dayoflove"
+        app:layout_constraintTop_toBottomOf="@+id/txtDayOfLove"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/date_watch"
+            android:id="@+id/txtDayBeginLove"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/uvf_fiolex_girl"
             android:gravity="center"
+            android:onClick="btnOpenSpinerSetting"
             android:text="0/0/0"
             android:textColor="@color/white"
             android:textSize="40dp" />
@@ -43,28 +46,110 @@
         app:layout_constraintVertical_bias="0.0">
 
         <ImageButton
-            android:id="@+id/gotoSetting"
+            android:id="@+id/btnOpenMenuSettingMainActivity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
-            app:srcCompat="@drawable/edit_button" />
+            android:onClick="btnOpenMenuSettingMainActivity"
+            app:srcCompat="@drawable/edit_button"
+            tools:ignore="ContentDescription,OnClick,UsingOnClickInXml" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/dayoflove"
-        android:layout_width="401dp"
-        android:layout_height="212dp"
+        android:id="@+id/txtDayOfLove"
+        android:layout_width="256dp"
+        android:layout_height="197dp"
         android:fontFamily="@font/uvf_fiolex_girl"
         android:gravity="center"
+        android:onClick="btnOpenSpinerSetting"
         android:text="Bạn Chưa Nhập Ngày Bắt Đầu Yêu Nhau"
         android:textColor="@color/white"
         android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.407" />
+        app:layout_constraintVertical_bias="0.406" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgAvatarAdam"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:onClick="permissionRequestChooseAvatar"
+        android:src="@drawable/test"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDayOfLove"
+        app:layout_constraintVertical_bias="0.039"
+        tools:ignore="MissingConstraints,UsingOnClickInXml"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="588dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgAvatarEva"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:onClick="permissionRequestChooseAvatar"
+        android:src="@drawable/test"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/txtDayOfLove"
+        app:layout_constraintVertical_bias="0.039"
+        tools:ignore="MissingConstraints,UsingOnClickInXml" />
+
+    <LinearLayout
+        android:layout_width="104dp"
+        android:layout_height="69dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.019"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgAvatarAdam"
+        app:layout_constraintVertical_bias="0.153">
+
+        <TextView
+            android:id="@+id/txtNameAdam"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/uvf_fiolex_girl"
+            android:gravity="center"
+            android:onClick="txtNameClick"
+            android:text="Adam"
+            android:textSize="30dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="104dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgAvatarEva"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/txtNameEva"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/uvf_fiolex_girl"
+            android:gravity="center"
+            android:onClick="txtNameClick"
+            android:text="Eva"
+            android:textSize="30dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
