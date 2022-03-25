@@ -5,7 +5,7 @@
     <item
         android:id="@+id/menuSettingMainActivity_Item_One"
         android:onClick="menuSettingMainActivityClick"
-        android:title="Chỉnh Sữa Ngày Đến Bên Nhau"
+        android:title="Chỉnh Sửa Ngày Đến Bên Nhau"
         tools:ignore="HardcodedText" />
 
     <item

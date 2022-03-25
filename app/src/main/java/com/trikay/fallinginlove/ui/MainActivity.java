@@ -2,9 +2,11 @@ package com.trikay.fallinginlove.ui;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -12,8 +14,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.text.Html;
@@ -21,21 +21,19 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.DatePicker;
-import android.widget.ImageButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.trikay.fallinginlove.R;
 import com.trikay.fallinginlove.logic.GetDay;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
-import java.io.ByteArrayInputStream;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
@@ -46,7 +44,7 @@ import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import  java.lang.Thread;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import gun0912.tedbottompicker.TedBottomPicker;
 
@@ -57,9 +55,12 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase database = null;
 
     //Controls
-    TextView txtDayOfLove, txtDayBeginLove, txtNameAdam, txtNameEva;
-    ImageButton btnOpenSpinerSetting;
-    CircleImageView imgAvatarAdam, imgAvatarEva;
+    TextView txtDayOfLove,
+             txtDayBeginLove,
+             txtNameAdam,
+             txtNameEva;
+    CircleImageView imgAvatarAdam,
+                    imgAvatarEva;
 
     //Variables
     String dbTxtNameAdam = "";
@@ -148,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         File dbFile = getDatabasePath(DATABASE_NAME);
         if (!dbFile.exists()) {
             try {
-                CopyDataBaseFromAsset();
+                copyDataBaseFromAsset();
             } catch (Exception e) {
                 Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
             }
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         return getApplicationInfo().dataDir + DB_PATH_SUFFIX + DATABASE_NAME;
     }
 
-    public void CopyDataBaseFromAsset() {
+    public void copyDataBaseFromAsset() {
         try {
             InputStream myInput;
             myInput = getAssets().open(DATABASE_NAME);
@@ -187,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
+    //TODO permissionRequestChooseAvatar(View view)
     public void permissionRequestChooseAvatar(View view) {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
@@ -234,7 +235,8 @@ public class MainActivity extends AppCompatActivity {
                         contentValues.put("AvatarEva", pathBitmap);
                         int ret = database.update("DemNguoiYeuUser", contentValues, "AgeAdam=?", new String[]{"18"});
                     }
-                    setUpDataUser();
+                    ThreadAvatarChooseUpdateUI threadAvatarChooseUpdateUI = new ThreadAvatarChooseUpdateUI();
+                    threadAvatarChooseUpdateUI.execute();
                 } catch (Exception e) {
                     Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                 }
@@ -287,11 +289,11 @@ public class MainActivity extends AppCompatActivity {
 
         popup.show(); //showing popup menu
     }
-    private void showDatePicker() {
+    String[] s = {""};
+    public void showDatePicker() {
         DatePickerDialog.OnDateSetListener callBack = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(android.widget.DatePicker datePicker, int YEAR, int MONTH, int DAY_OF_MONTH) {
-                String[] s = {""};
                 s[0] = DAY_OF_MONTH +"/" + (MONTH+1) +"/" + YEAR;
                 database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
                 ContentValues contentValues = new ContentValues();
@@ -299,6 +301,8 @@ public class MainActivity extends AppCompatActivity {
                 int ret = database.update("DemNguoiYeuUser", contentValues, "AgeAdam=?", new String[]{"18"});
                 if(ret> 0){
                     Toast.makeText(MainActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                    ThreadDatePickerUpdateUI threadDatePickerUpdateUI = new ThreadDatePickerUpdateUI();
+                    threadDatePickerUpdateUI.execute();
                 }else{
                     Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
@@ -310,10 +314,8 @@ public class MainActivity extends AppCompatActivity {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH) );
         datePickerDialog.show();
-        DatePickerClick datePickerClick = new DatePickerClick();
-        datePickerClick.execute();
     }
-
+    //TODO BUTTONS CLICK
     public void menuSettingMainActivityClick(MenuItem item) {
         if(item.getItemId() == R.id.menuSettingMainActivity_Item_One){
             showDatePicker();
@@ -324,7 +326,57 @@ public class MainActivity extends AppCompatActivity {
                     .show();
         }
     }
-    class DatePickerClick extends AsyncTask<Void, String, Void>{
+
+    public void txtNameClick(View view) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+        alertDialog.setTitle("Tên Của Bạn Hoặc Người Ấy");
+        alertDialog.setMessage("Mời Bạn Nhập Tên Bên Dưới Nhé");
+
+        final EditText input = new EditText(MainActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        alertDialog.setView(input);
+        alertDialog.setIcon(R.drawable.edit_button);
+
+        alertDialog.setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String nameTemp = input.getText().toString();
+                        database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+                        ContentValues contentValues = new ContentValues();
+                        if(view.getId() == R.id.txtNameAdam){
+                            contentValues.put("NameAdam", nameTemp);
+                        }else if(view.getId() == R.id.txtNameEva) {
+                            contentValues.put("NameEva", nameTemp);
+                        }
+                        int ret = database.update("DemNguoiYeuUser", contentValues, "AgeAdam=?", new String[]{"18"});
+                        if(ret>0){
+                            ThreadNameTypeUpdateUI threadNameTypeUpdateUI = new ThreadNameTypeUpdateUI();
+                            threadNameTypeUpdateUI.execute();
+                        }
+                    }
+                });
+
+        alertDialog.setNegativeButton("NO",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        alertDialog.show();
+    }
+
+    public void txtDayOfLoveClick(View view) {
+        showDatePicker();
+    }
+
+
+    //TODO THREADS
+    @SuppressLint("StaticFieldLeak")
+    class ThreadNameTypeUpdateUI extends AsyncTask<Void, String, Void>{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -338,13 +390,99 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            txtDayBeginLove.setText(values[0]);
+            txtNameAdam.setText(values[0]);
+            txtNameEva.setText(values[1]);
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            final String[] s = {""};
-            publishProgress("2/2/2");
+            database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+            Cursor cursor = database.query("DemNguoiYeuUser", null, null, null, null, null, null);
+            cursor.moveToNext();
+            publishProgress(cursor.getString(0),cursor.getString(1));
+            return null;
+        }
+    }
+    @SuppressLint("StaticFieldLeak")
+    class ThreadAvatarChooseUpdateUI extends  AsyncTask<Void, Bitmap, Void>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+        }
+
+        @Override
+        protected void onProgressUpdate(Bitmap... bitmap) {
+            super.onProgressUpdate(bitmap);
+            if(bitmap[0] != null){
+                imgAvatarAdam.setImageBitmap(bitmap[0]);
+            }
+            if(bitmap[1] != null){
+                imgAvatarEva.setImageBitmap(bitmap[1]);
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+            Cursor cursor = database.query("DemNguoiYeuUser", null, null, null, null, null, null);
+            cursor.moveToNext();
+
+            Bitmap bitmapAdam = null;
+            if(!cursor.getString(4).equals("None")){
+               bitmapAdam = uriToBitmap(Uri.parse(cursor.getString(4)));
+            }
+            Bitmap bitmapEva = null;
+            if(!cursor.getString(5).equals("None")){
+                bitmapEva = uriToBitmap(Uri.parse(cursor.getString(5)));
+            }
+            publishProgress(bitmapAdam, bitmapEva);
+            return null;
+        }
+    }
+    @SuppressLint("StaticFieldLeak")
+    class ThreadDatePickerUpdateUI extends AsyncTask<Void, String, Void>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+            Toast.makeText(MainActivity.this, "Completed", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+            txtDayOfLove.setText(Html.fromHtml("Đã Yêu"+"<br>"+ values[0] + " <br>"+"Ngày"));
+            txtDayBeginLove.setText(values[1]);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+            Cursor cursor = database.query("DemNguoiYeuUser", null, null, null, null, null, null);
+            cursor.moveToNext();
+            String dateRaw = cursor.getString(6);
+            String result = "";
+                if (dateRaw.equals("0/0/0")) {
+                    Toast.makeText(MainActivity.this, "Bạn vui lòng vào chỉnh sữa để đặt ngày đôi bạn đến với nhau nhé", Toast.LENGTH_SHORT).show();
+                } else {
+                    GetDay getDay = new GetDay();
+                    String[] dateProcessed = dateRaw.split("/");
+                    int day = Integer.parseInt(dateProcessed[0]);
+                    int month = Integer.parseInt(dateProcessed[1]);
+                    int year = Integer.parseInt(dateProcessed[2]);
+                    result = String.valueOf(getDay.finalyday(day, month, year) + 1);
+                }
+            publishProgress(result,dateRaw);
             return null;
         }
     }

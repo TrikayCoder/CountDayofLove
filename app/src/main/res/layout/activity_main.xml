@@ -27,7 +27,6 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/uvf_fiolex_girl"
             android:gravity="center"
-            android:onClick="btnOpenSpinerSetting"
             android:text="0/0/0"
             android:textColor="@color/white"
             android:textSize="40dp" />
@@ -57,11 +56,11 @@
 
     <TextView
         android:id="@+id/txtDayOfLove"
+        android:onClick="txtDayOfLoveClick"
         android:layout_width="256dp"
         android:layout_height="197dp"
         android:fontFamily="@font/uvf_fiolex_girl"
         android:gravity="center"
-        android:onClick="btnOpenSpinerSetting"
         android:text="Bạn Chưa Nhập Ngày Bắt Đầu Yêu Nhau"
         android:textColor="@color/white"
         android:textSize="45sp"
